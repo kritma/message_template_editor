@@ -10,9 +10,6 @@ function createContainer(children: (TemplateCondition | TemplateString)[]): Temp
     return { type: "Container", children }
 }
 
-
-
-
 function createCondition(condition: string, then: string, otherwise: string): TemplateCondition {
     return { type: "Condition", condition: createContainer([createString(condition)]), then: createContainer([createString(then)]), otherwise: createContainer([createString(otherwise)]) }
 }
@@ -29,8 +26,6 @@ tap.test("solve string", async (test) => {
     const wanted = "hey John, do you want some chips?"
     test.equal(result, wanted, `solveString should return "${wanted}" with template: "${template_string.value}" and variables ${JSON.stringify(values)}`)
 })
-
-
 
 
 tap.test("solve string with undefined variable", async (test) => {
@@ -52,7 +47,7 @@ tap.test("solve condition", async (test) => {
     const values = { name: "John" }
     let result = solveCondition(template_condition, values)
 
-    test.pass("solveString executed sucessfully")
+    test.pass("solveCondition executed sucessfully")
 
     const wanted = "hello John!"
     test.equal(result, wanted, `solveCondition should return "${wanted}"`)
@@ -63,10 +58,12 @@ tap.test("solve condition else", async (test) => {
     const template_condition = createCondition("{name}", "hello {name}!", "hello, how can i call you?")
 
     const values = {}
+
     let result = solveCondition(template_condition, values)
 
-    test.pass("solveString executed sucessfully")
+    test.pass("solveCondition executed sucessfully")
 
     const wanted = "hello, how can i call you?"
     test.equal(result, wanted, `solveCondition should return "${wanted}"`)
 })
+
