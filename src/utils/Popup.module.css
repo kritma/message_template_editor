@@ -1,0 +1,26 @@
+.popup_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+}
+
+.button {
+    padding: 0.5rem;
+    cursor: pointer;
+    background-color: white;
+    outline: none;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: rgb(255, 160, 160);
+}

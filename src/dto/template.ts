@@ -1,21 +1,22 @@
 
 export interface Template {
-    root: TemplateContainer
+    root: TemplateContainerDto
 }
 
-export interface TemplateContainer {
-    type: "Container"
-    children: (TemplateCondition | TemplateString)[]
+export type TemplateComponentDto = TemplateConditionDto | TemplateStringDto
+
+export interface TemplateContainerDto {
+    children: TemplateComponentDto[]
 }
 
-export interface TemplateCondition {
+export interface TemplateConditionDto {
     type: "Condition"
-    condition: TemplateContainer
-    then: TemplateContainer
-    otherwise: TemplateContainer
+    condition: TemplateContainerDto
+    then: TemplateContainerDto
+    otherwise: TemplateContainerDto
 }
 
-export interface TemplateString {
+export interface TemplateStringDto {
     type: "String"
     value: string
 }

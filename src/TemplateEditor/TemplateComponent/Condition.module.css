@@ -1,0 +1,49 @@
+.condition_wrapper {
+    margin: 1rem;
+    animation: show 600ms forwards;
+    transform: scaleY(0);
+    display: flex;
+}
+
+.if {}
+
+.then {}
+
+.otherwise {}
+
+.delete {
+    width: 0rem;
+    outline: none;
+    border: 1px solid black;
+    cursor: pointer;
+    background-color: white;
+}
+
+.condition {
+    padding: 1rem;
+    padding-left: 1.5rem;
+}
+
+.delete:hover {
+    background-color: rgb(255, 0, 0);
+}
+
+.delete:hover+.condition {
+    background-color: rgba(255, 0, 0, 0.118);
+}
+
+.condition_wrapper:hover>.delete {
+    width: 1rem;
+}
+
+.condition_wrapper:hover>.condition {
+    padding-left: 0.62rem;
+}
+
+
+
+@keyframes show {
+    100% {
+        transform: scaleY(1);
+    }
+}

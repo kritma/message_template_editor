@@ -1,11 +1,12 @@
-import styles from "./VariableButtons.module.css"
+import styles from "./VariablesButtons.module.css"
 import { VariableButton } from "./VariableButton/VariableButton"
+import { useEditorDispatch } from "../EditorContext"
 
-export function VariablesButtons({ arrVarNames, onClick }: { arrVarNames: string[], onClick: (variableName: string) => void }) {
+export function VariablesButtons({ arrVarNames }: { arrVarNames: string[] }) {
     return (
-        <div>
+        <div className={styles.buttons}>
             {
-                arrVarNames.map(variableName => <VariableButton key={variableName} varName={variableName} onClick={() => onClick(variableName)} />)
+                arrVarNames.map(variableName => <VariableButton key={variableName} varName={variableName} />)
             }
         </div>
     )
