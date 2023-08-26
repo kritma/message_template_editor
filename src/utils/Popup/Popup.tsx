@@ -5,10 +5,7 @@ function Popup({ children, closePopup }: { children: React.ReactNode, closePopup
     return (
         <div className={styles.popup_container}>
             <button className={`${styles.button} ${styles.close}`} onClick={closePopup}>Close</button>
-
-            <div>
-                {children}
-            </div>
+            <div>{children}</div>
         </div>
     );
 };

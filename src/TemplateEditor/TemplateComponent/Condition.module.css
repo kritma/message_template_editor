@@ -1,49 +1,56 @@
 .condition_wrapper {
-    margin: 1rem;
+    margin-top: 0;
+    position: relative;
     animation: show 600ms forwards;
     transform: scaleY(0);
+}
+
+@keyframes show {
+    100% {
+        transform: scaleY(1);
+    }
+}
+
+.branch {
+    display: block;
+    border: 1px solid black;
+    padding: 0.1rem;
+    height: 2.13rem;
+    line-height: 2.13rem;
+    width: 2.13rem;
+    text-align: center;
+    border-right: 0;
+    background-color: white;
+}
+
+.branch_container {
     display: flex;
 }
 
-.if {}
-
-.then {}
-
-.otherwise {}
-
 .delete {
-    width: 0rem;
+    position: absolute;
+    height: 1.5rem;
+    width: 1.5rem;
     outline: none;
     border: 1px solid black;
     cursor: pointer;
     background-color: white;
+    line-height: 0.5rem;
 }
 
 .condition {
     padding: 1rem;
-    padding-left: 1.5rem;
+    padding-top: 1.5rem;
+    padding-left: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .delete:hover {
     background-color: rgb(255, 0, 0);
 }
 
-.delete:hover+.condition {
+.delete:hover~.condition {
     background-color: rgba(255, 0, 0, 0.118);
-}
-
-.condition_wrapper:hover>.delete {
-    width: 1rem;
-}
-
-.condition_wrapper:hover>.condition {
-    padding-left: 0.62rem;
-}
-
-
-
-@keyframes show {
-    100% {
-        transform: scaleY(1);
-    }
 }

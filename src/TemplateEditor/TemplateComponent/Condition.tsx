@@ -7,11 +7,12 @@ export function Condition({ self }: { self: TemplateCondition }) {
     return (
         <div className={styles.condition_wrapper}>
             <button className={styles.delete} onClick={() => dispatch({ type: "delete_condition", id: self.id })}>
+                x
             </button>
             <div className={styles.condition}>
-                <div className={styles.if}><p>if</p> <Container self={self.condition} /></div>
-                <div className={styles.then}><p>then</p> <Container self={self.then} /></div>
-                <div className={styles.otherwise}><p>else</p> <Container self={self.otherwise} /></div>
+                <div className={styles.branch_container}><p className={styles.branch}>if</p> <Container self={self.condition} /></div>
+                <div className={styles.branch_container}><p className={styles.branch}>then</p> <Container self={self.then} /></div>
+                <div className={styles.branch_container}><p className={styles.branch}>else</p> <Container self={self.otherwise} /></div>
             </div>
         </div>
     )
