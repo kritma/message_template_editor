@@ -16,12 +16,14 @@
     display: block;
     border: 1px solid black;
     padding: 0.1rem;
-    height: 2.13rem;
-    line-height: 2.13rem;
-    width: 2.13rem;
+    height: 34px;
+    line-height: 34px;
+    width: 2.5rem;
     text-align: center;
     border-right: 0;
     background-color: white;
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
 }
 
 .branch_container {
