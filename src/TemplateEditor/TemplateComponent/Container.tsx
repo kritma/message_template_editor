@@ -1,4 +1,4 @@
-import { TemplateContainer } from "../dtoWrappers";
+import { TemplateContainer } from "../../utils/dto/dtoWrappers";
 import { Condition } from "./Condition";
 import { String } from "./String";
 import styles from "./Container.module.css"

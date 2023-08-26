@@ -1,6 +1,6 @@
-import { createContext, ReactElement, ReactNode, useContext, useReducer } from 'react';
-import { Template, TemplateConditionDto, TemplateContainerDto, TemplateStringDto } from '../dto/template';
-import { TemplateCondition, TemplateContainer, TemplateString } from './dtoWrappers';
+import { createContext, ReactNode, useContext, useReducer } from 'react';
+import { TemplateDto } from '../utils/dto/template';
+import { Template, TemplateCondition, TemplateContainer, TemplateString } from '../utils/dto/dtoWrappers';
 
 interface Selection {
     id: string
@@ -9,7 +9,7 @@ interface Selection {
 
 export interface EditorContext {
     selection: Selection,
-    root: TemplateContainer
+    template: Template
 }
 
 type Action = { type: "set_selection", selection: Selection } |
@@ -17,18 +17,19 @@ type Action = { type: "set_selection", selection: Selection } |
 { type: "delete_condition", id: string } |
 { type: "insert_variable", variableName: string }
 
-const default_template = new TemplateContainer([new TemplateString()])
-const default_selection = { selectionPos: 0, id: default_template.children[0].id }
+const default_template = new Template({ variables: [], root: new TemplateContainer([new TemplateString()]) })
+const default_selection = { selectionPos: 0, id: default_template.root.children[0].id }
 
-const EditorContext = createContext<EditorContext>({ selection: default_selection, root: default_template })
+const EditorContext = createContext<EditorContext>({ selection: default_selection, template: default_template })
 const EditorDispatchContext = createContext<React.Dispatch<Action>>(action => action);
 
-export function EditorProvider({ children, template }: { children: ReactNode, template?: Template }) {
-    const root = template ? new TemplateContainer(template.root) : default_template
+export function EditorProvider({ children, template, variables }: { children: ReactNode, template?: TemplateDto, variables: string[] }) {
+    const t = template ? new Template({ variables: variables, root: new TemplateContainer(template.root) }) : default_template
+    t.variables = variables
 
     const [selection, dispatch] = useReducer<typeof tasksReducer>(tasksReducer, {
-        selection: { selectionPos: 0, id: root.children[0].id },
-        root
+        selection: { selectionPos: 0, id: t.root.children[0].id },
+        template: t
     });
 
     return (
@@ -50,34 +51,40 @@ export function useEditorDispatch() {
 
 function tasksReducer(state: EditorContext, action: Action): EditorContext {
     state = structuredClone({ ...state })
-    state.root = new TemplateContainer(state.root)
+    state.template = new Template(state.template)
 
     switch (action.type) {
         case "set_selection": {
             state.selection = action.selection
         } break
         case "insert_condition": {
-            const { parent, component } = state.root.findComponent(state.selection!.id)! as { parent: TemplateContainer, component: TemplateString }
-            const first = component.value.substring(0, state.selection!.selectionPos)
-            const second = component.value.substring(state.selection!.selectionPos)
+            const { parent, component } = state.template.root.findComponent(state.selection.id) as { parent: TemplateContainer, component: TemplateString }
+            const first = component.value.substring(0, state.selection.selectionPos)
+            const second = component.value.substring(state.selection.selectionPos)
             const index = parent.children.indexOf(component)
             parent.children = [...parent.children.slice(0, index), new TemplateString(first),
             new TemplateCondition(), new TemplateString(second), ...parent.children.slice(index + 1)]
         } break
         case "delete_condition": {
-            const { parent, component } = state.root.findComponent(action.id) as { parent: TemplateContainer, component: TemplateCondition }
+            const { parent, component } = state.template.root.findComponent(action.id) as { parent: TemplateContainer, component: TemplateCondition }
             const index = parent.children.indexOf(component)!
             const first = parent.children[index - 1] as TemplateString
             const second = parent.children[index + 1] as TemplateString
             parent.children = [...parent.children.slice(0, index - 1), new TemplateString(first.value + second.value), ...parent.children.slice(index + 2)]
         } break
         case "insert_variable": {
-            const { component } = state.root.findComponent(state.selection!.id)! as { parent: TemplateContainer, component: TemplateString }
-            const first = component.value.substring(0, state.selection!.selectionPos)
-            const second = component.value.substring(state.selection!.selectionPos)
+            const { component } = state.template.root.findComponent(state.selection.id) as { parent: TemplateContainer, component: TemplateString }
+            const first = component.value.substring(0, state.selection.selectionPos)
+            const second = component.value.substring(state.selection.selectionPos)
             component.value = `${first}{${action.variableName}}${second}`
         } break
     }
+
+    if (state.template.root.findComponent(state.selection.id) == null) {
+        state.selection.id = state.template.root.children[0].id
+        state.selection.selectionPos = 0
+    }
+
 
     return state
 }

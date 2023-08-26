@@ -1,6 +1,6 @@
-
-export interface Template {
+export interface TemplateDto {
     root: TemplateContainerDto
+    variables: string[]
 }
 
 export type TemplateComponentDto = TemplateConditionDto | TemplateStringDto

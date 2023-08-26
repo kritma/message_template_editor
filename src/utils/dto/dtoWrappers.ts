@@ -1,4 +1,5 @@
-import { TemplateConditionDto, TemplateContainerDto, TemplateStringDto } from "../dto/template";
+import { TemplateConditionDto, TemplateContainerDto, TemplateDto, TemplateStringDto } from "./template";
+
 
 
 export class TemplateString {
@@ -101,5 +102,17 @@ export class TemplateContainer {
         }
 
         return null
+    }
+}
+
+export class Template {
+    root: TemplateContainer
+    variables: string[]
+    constructor(template: TemplateDto) {
+        this.root = new TemplateContainer(template.root)
+        this.variables = template.variables
+    }
+    toDto(): TemplateDto {
+        return { root: this.root.toDto(), variables: this.variables }
     }
 }

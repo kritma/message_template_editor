@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { useEditorDispatch } from "../EditorContext";
-import { TemplateString } from "../dtoWrappers";
+import { TemplateString } from "../../utils/dto/dtoWrappers";
 import styles from "./String.module.css"
 import TextareaAutosize from 'react-textarea-autosize';
 
@@ -15,6 +15,6 @@ export function String({ self }: { self: TemplateString }) {
         }}
         onBlur={e => {
             if (e.target instanceof HTMLTextAreaElement)
-                dispatch({ type: "set_selection", selection: { selectionPos: e.target.selectionStart!, id: self.id } })
+                dispatch({ type: "set_selection", selection: { selectionPos: e.target.selectionStart, id: self.id } })
         }} value={self.value} />
 }
