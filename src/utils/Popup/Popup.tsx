@@ -4,10 +4,11 @@ import styles from "./Popup.module.css";
 function Popup({ children, closePopup }: { children: React.ReactNode, closePopup: () => void }) {
     return (
         <div className={styles.popup_container}>
+            <button className={`${styles.button} ${styles.close}`} onClick={closePopup}>Close</button>
+
             <div>
                 {children}
             </div>
-            <button className={styles.button} onClick={closePopup}>Close</button>
         </div>
     );
 };

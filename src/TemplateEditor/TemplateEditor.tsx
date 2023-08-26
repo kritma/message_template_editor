@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
-import { TemplateDto } from "../utils/dto/template"
+import { TemplateDto } from "../utils/dto/dto"
 import { Container } from "./TemplateComponent/Container"
 import styles from "./TemplateEditor.module.css"
 import { VariablesButtons } from "./VariablesButtons/VariablesButtons"
 import { EditorProvider, useEditor, useEditorDispatch } from "./EditorContext"
 import { TemplatePreview } from "./TemplatePreview/TemplatePreview"
-import { PopupButton } from "../utils/Popup"
+import { PopupButton } from "../utils/Popup/Popup"
 
 export function TemplateEditor({ arrVarNames, template, callbackSave }: { arrVarNames: string[], template?: TemplateDto, callbackSave: (template: TemplateDto) => void }) {
     return (

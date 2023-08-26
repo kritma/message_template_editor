@@ -1,6 +1,4 @@
-import { TemplateConditionDto, TemplateContainerDto, TemplateDto, TemplateStringDto } from "./template";
-
-
+import { TemplateConditionDto, TemplateContainerDto, TemplateDto, TemplateStringDto } from "./dto";
 
 export class TemplateString {
     value: string;

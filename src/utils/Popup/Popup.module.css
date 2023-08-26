@@ -1,8 +1,8 @@
 .popup_container {
+    padding: 1rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    gap: 1rem;
     gap: 1rem;
     position: fixed;
     top: 0;
@@ -22,5 +22,9 @@
 }
 
 .button:hover {
+    background-color: rgb(215, 215, 215);
+}
+
+.button.close:hover {
     background-color: rgb(255, 160, 160);
 }

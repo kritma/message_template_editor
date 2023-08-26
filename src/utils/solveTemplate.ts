@@ -1,4 +1,4 @@
-import { TemplateDto, TemplateConditionDto, TemplateContainerDto, TemplateStringDto } from "./dto/template";
+import { TemplateDto, TemplateConditionDto, TemplateContainerDto, TemplateStringDto } from "./dto/dto";
 
 export function solveTemplate(template: TemplateDto, values: { [key: string]: string }): string {
     return solveContainer(template.root, values, template.variables)
