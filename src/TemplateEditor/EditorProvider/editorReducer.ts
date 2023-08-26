@@ -1,4 +1,4 @@
-import { Template, TemplateCondition, TemplateContainer, TemplateString } from "../../utils/dtoWrappers.js"
+import { Template, TemplateCondition, TemplateContainer, TemplateString } from "../../utils/dtoWrappers"
 
 type Selection = {
     id: string

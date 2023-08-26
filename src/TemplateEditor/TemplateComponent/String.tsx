@@ -6,12 +6,12 @@ import TextareaAuto from 'react-textarea-autosize';
 
 export function String({ self }: { self: TemplateString }) {
     const dispatch = useEditorDispatch()
-    const [, setValue] = useState<void>()
+    const [, setValue] = useState(self.value)
 
     return <TextareaAuto
         className={styles.string}
         onChange={(e) => {
-            setValue(() => { self.value = e.target.value })
+            setValue(() => { self.value = e.target.value; return self.value })
         }}
         onBlur={e => {
             if (e.target instanceof HTMLTextAreaElement)

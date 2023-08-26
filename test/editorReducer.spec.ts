@@ -1,6 +1,6 @@
 import tap from "tap"
-import { EditorContextType, editorReducer } from '../src/TemplateEditor/EditorProvider/editorReducer.js'
-import { Template, TemplateCondition, TemplateString } from "../src/utils/dtoWrappers.js"
+import { EditorContextType, editorReducer } from '../src/TemplateEditor/EditorProvider/editorReducer'
+import { Template, TemplateCondition, TemplateString } from "../src/utils/dtoWrappers"
 
 tap.test("insert condition", async (test) => {
     const template = new Template({ root: { children: [] }, variables: [] })
