@@ -1,4 +1,4 @@
-import { useEditorDispatch } from '../../EditorContext';
+import { useEditorDispatch } from '../../EditorProvider/EditorProvider';
 import styles from './VariableButton.module.css'
 
 export function VariableButton({ varName }: { varName: string }) {

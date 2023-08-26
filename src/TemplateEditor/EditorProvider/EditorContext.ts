@@ -1,55 +1,24 @@
-import { createContext, ReactNode, useContext, useReducer } from 'react';
-import { TemplateDto } from '../utils/dto';
-import { Template, TemplateCondition, TemplateContainer, TemplateString } from '../utils/dtoWrappers';
+import { createContext } from "react"
+import { Template, TemplateCondition, TemplateContainer, TemplateString } from "../../utils/dtoWrappers"
 
-interface Selection {
+type Selection = {
     id: string
     selectionPos: number
 }
 
-interface IEditorContext {
+export type EditorContextType = {
     selection: Selection,
     template: Template
 }
 
-type Action = { type: 'set_selection', selection: Selection } |
+
+export type Action = { type: 'set_selection', selection: Selection } |
 { type: 'insert_condition' } |
 { type: 'delete_condition', id: string } |
 { type: 'insert_variable', variableName: string }
 
-const default_template = new Template({ variables: [], root: new TemplateContainer([new TemplateString()]) })
-const default_selection = { selectionPos: 0, id: default_template.root.children[0].id }
 
-const EditorContext = createContext<IEditorContext>({ selection: default_selection, template: default_template })
-const EditorDispatchContext = createContext<React.Dispatch<Action>>(action => action);
-
-export function EditorProvider({ children, template, variables }: { children: ReactNode, template?: TemplateDto, variables: string[] }) {
-    const t = template ? new Template({ variables: variables, root: new TemplateContainer(template.root) }) : default_template
-    t.variables = variables
-
-    const [selection, dispatch] = useReducer<typeof tasksReducer>(tasksReducer, {
-        selection: { selectionPos: 0, id: t.root.children[0].id },
-        template: t
-    });
-
-    return (
-        <EditorContext.Provider value={selection}>
-            <EditorDispatchContext.Provider value={dispatch}>
-                {children}
-            </EditorDispatchContext.Provider>
-        </EditorContext.Provider>
-    );
-}
-
-export function useEditor() {
-    return useContext(EditorContext)
-}
-
-export function useEditorDispatch() {
-    return useContext(EditorDispatchContext)!
-}
-
-function tasksReducer(state: IEditorContext, action: Action): IEditorContext {
+export function tasksReducer(state: EditorContextType, action: Action): EditorContextType {
     state = structuredClone({ ...state })
     state.template = new Template(state.template)
 

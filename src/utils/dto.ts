@@ -5,18 +5,18 @@ export interface TemplateDto {
 
 export type TemplateComponentDto = TemplateConditionDto | TemplateStringDto
 
-export interface TemplateContainerDto {
+export type TemplateContainerDto = {
     children: TemplateComponentDto[]
 }
 
-export interface TemplateConditionDto {
+export type TemplateConditionDto = {
     type: 'Condition'
     condition: TemplateContainerDto
     then: TemplateContainerDto
     otherwise: TemplateContainerDto
 }
 
-export interface TemplateStringDto {
+export type TemplateStringDto = {
     type: 'String'
     value: string
 }

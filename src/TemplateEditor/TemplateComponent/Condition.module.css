@@ -2,6 +2,7 @@
     margin-top: 0;
     position: relative;
     animation: show 600ms forwards;
+    transform-origin: top;
     transform: scaleY(0);
 }
 

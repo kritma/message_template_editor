@@ -2,9 +2,10 @@ import { TemplateDto } from '../utils/dto'
 import { Container } from './TemplateComponent/Container'
 import styles from './TemplateEditor.module.css'
 import { VariablesButtons } from './VariablesButtons/VariablesButtons'
-import { EditorProvider, useEditor, useEditorDispatch } from './EditorContext'
+import { EditorProvider, useEditor } from './EditorProvider/EditorProvider'
 import { TemplatePreview } from './TemplatePreview/TemplatePreview'
 import { PopupButton } from '../utils/Popup/Popup'
+import { AddConditionButton } from './AddConditionButton/AddConditionButton'
 
 export function TemplateEditor({ arrVarNames, template, callbackSave }: { arrVarNames: string[], template?: TemplateDto, callbackSave: (template: TemplateDto) => void }) {
     return (
@@ -16,15 +17,11 @@ export function TemplateEditor({ arrVarNames, template, callbackSave }: { arrVar
 
 function Editor({ arrVarNames, callbackSave }: { arrVarNames: string[], callbackSave: (template: TemplateDto) => void }) {
     const editor = useEditor()
-    const dispatch = useEditorDispatch()
-
 
     return (
         <div className={styles.editor}>
             <VariablesButtons arrVarNames={arrVarNames} />
-            <button className={styles.button} onClick={() => {
-                dispatch({ type: 'insert_condition' })
-            }}>Add condition</button>
+            <AddConditionButton />
             <div className={styles.root_container}>
                 <Container self={editor.template.root} />
             </div>

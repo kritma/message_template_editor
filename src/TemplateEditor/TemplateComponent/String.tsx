@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useEditorDispatch } from '../EditorContext';
+import { useEditorDispatch } from '../EditorProvider/EditorProvider';
 import { TemplateString } from '../../utils/dtoWrappers';
 import styles from './String.module.css'
 import TextareaAuto from 'react-textarea-autosize';

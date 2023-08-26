@@ -1,7 +1,7 @@
 import { TemplateCondition } from '../../utils/dtoWrappers'
 import { Container } from './Container'
 import styles from './Condition.module.css'
-import { useEditorDispatch } from '../EditorContext'
+import { useEditorDispatch } from '../EditorProvider/EditorProvider'
 
 export function Condition({ self }: { self: TemplateCondition }) {
     const dispatch = useEditorDispatch()
