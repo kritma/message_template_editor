@@ -1,4 +1,4 @@
-import { TemplateCondition } from "../../utils/dto/dtoWrappers"
+import { TemplateCondition } from "../../utils/dtoWrappers"
 import { Container } from "./Container"
 import styles from "./Condition.module.css"
 import { useEditorDispatch } from "../EditorContext"

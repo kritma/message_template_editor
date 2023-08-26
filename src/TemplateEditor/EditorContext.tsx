@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext, useReducer } from 'react';
-import { TemplateDto } from '../utils/dto/dto';
-import { Template, TemplateCondition, TemplateContainer, TemplateString } from '../utils/dto/dtoWrappers';
+import { TemplateDto } from '../utils/dto';
+import { Template, TemplateCondition, TemplateContainer, TemplateString } from '../utils/dtoWrappers';
 
 interface Selection {
     id: string

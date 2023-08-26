@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { TemplateDto } from "../utils/dto/dto"
+import { TemplateDto } from "../utils/dto"
 import { Container } from "./TemplateComponent/Container"
 import styles from "./TemplateEditor.module.css"
 import { VariablesButtons } from "./VariablesButtons/VariablesButtons"

@@ -1,5 +1,5 @@
 import { TemplateEditor } from './TemplateEditor/TemplateEditor'
-import { TemplateDto } from './utils/dto/dto'
+import { TemplateDto } from './utils/dto'
 
 export function LocalStorageTemplateLoader() {
     const arrVarNames: string[] = localStorage.arrVarNames ? JSON.parse(localStorage.arrVarNames) : ['firstname', 'lastname', 'company', 'position']

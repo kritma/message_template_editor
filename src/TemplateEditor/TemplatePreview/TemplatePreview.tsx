@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react"
-import { TemplateDto } from "../../utils/dto/dto"
+import { TemplateDto } from "../../utils/dto"
 import { solveTemplate } from "../../utils/solveTemplate"
 import styles from "./TemplatePreview.module.css"
 

@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { useEditorDispatch } from "../EditorContext";
-import { TemplateString } from "../../utils/dto/dtoWrappers";
+import { TemplateString } from "../../utils/dtoWrappers";
 import styles from "./String.module.css"
 import TextareaAutosize from 'react-textarea-autosize';
 
