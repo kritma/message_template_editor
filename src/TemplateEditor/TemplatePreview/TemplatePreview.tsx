@@ -7,7 +7,6 @@ import styles from './TemplatePreview.module.css'
 export function TemplatePreview({ template, arrVarNames }: { arrVarNames: string[], template: TemplateDto }) {
     const [variables, setVariables] = useState<{ [key: string]: string }>({})
 
-
     return (
         <div className={styles.preview}>
             <div className={styles.variables}>

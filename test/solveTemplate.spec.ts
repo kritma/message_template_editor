@@ -1,5 +1,5 @@
 import tap from "tap"
-import { TemplateComponentDto, TemplateConditionDto, TemplateContainerDto, TemplateDto, TemplateStringDto } from "../src/utils/dto"
+import { TemplateComponentDto, TemplateConditionDto, TemplateContainerDto, TemplateDto, TemplateStringDto } from "../src/utils/dto.js"
 import { solveCondition, solveContainer, solveString, solveTemplate } from "../src/utils/solveTemplate.js"
 
 function createString(value: string): TemplateStringDto {

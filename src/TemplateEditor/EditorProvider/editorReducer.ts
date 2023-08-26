@@ -1,16 +1,15 @@
-import { createContext } from "react"
-import { Template, TemplateCondition, TemplateContainer, TemplateString } from "../../utils/dtoWrappers"
+import { Template, TemplateCondition, TemplateContainer, TemplateString } from "../../utils/dtoWrappers.js"
 
 type Selection = {
     id: string
     selectionPos: number
 }
 
+// selection changes only on blur, so it`s ok
 export type EditorContextType = {
     selection: Selection,
     template: Template
 }
-
 
 export type Action = { type: 'set_selection', selection: Selection } |
 { type: 'insert_condition' } |
@@ -18,8 +17,9 @@ export type Action = { type: 'set_selection', selection: Selection } |
 { type: 'insert_variable', variableName: string }
 
 
-export function tasksReducer(state: EditorContextType, action: Action): EditorContextType {
+export function editorReducer(state: EditorContextType, action: Action): EditorContextType {
     state = structuredClone({ ...state })
+    // structuredClone doesn`t copy functions
     state.template = new Template(state.template)
 
     switch (action.type) {
@@ -49,6 +49,7 @@ export function tasksReducer(state: EditorContextType, action: Action): EditorCo
         } break
     }
 
+    // selection is always correct
     if (state.template.root.findComponent(state.selection.id) == null) {
         state.selection.id = state.template.root.children[0].id
         state.selection.selectionPos = 0
