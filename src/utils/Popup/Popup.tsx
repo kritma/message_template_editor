@@ -13,8 +13,10 @@ function Popup({ children, closePopup }: { children: React.ReactNode, closePopup
 export function PopupButton({ text, children }: { children: React.ReactNode, text: string, }) {
     const [isOpen, SetOpenState] = useState(false)
 
-    return <>
-        <button className={styles.button} onClick={() => { SetOpenState(true) }}>{text}</button>
-        {isOpen ? <Popup closePopup={() => SetOpenState(false)}>{children}</Popup> : null}
-    </>
+    return (
+        <>
+            <button className={styles.button} onClick={() => { SetOpenState(true) }}>{text}</button>
+            {isOpen ? <Popup closePopup={() => SetOpenState(false)}>{children}</Popup> : null}
+        </>
+    )
 }

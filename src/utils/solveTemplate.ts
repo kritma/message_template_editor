@@ -29,8 +29,7 @@ export function solveCondition(condition: TemplateConditionDto, values: { [key: 
 }
 
 export function solveString(template_string: TemplateStringDto, values: { [key: string]: string }, variables: string[]): string {
-    let regex = /\{([^{}]+)\}/g // match example {Name for m1}
-    return template_string.value.replace(regex, (all, match) => variables.includes(match) ? (values[match] ?? '') : all)
+    return template_string.value.replace(/\{([^{}]+)\}/g, (all, match) => variables.includes(match) ? (values[match] ?? '') : all)
 }
 
 

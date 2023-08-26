@@ -11,6 +11,7 @@ export function TemplatePreview({ template, arrVarNames }: { arrVarNames: string
         <div className={styles.preview}>
             <div className={styles.variables}>
                 {
+                    // for ease of state management
                     arrVarNames.map(v => (
                         <div className={styles.variable}>
                             <label className={styles.variable_name} htmlFor={v}>{v}</label>

@@ -25,7 +25,6 @@ export class TemplateString {
     }
 }
 
-
 export class TemplateCondition {
     condition: TemplateContainer;
     then: TemplateContainer;
@@ -47,9 +46,11 @@ export class TemplateCondition {
             }
         }
     }
+
     toDto(): TemplateConditionDto {
         return { type: 'Condition', condition: this.condition.toDto(), then: this.then.toDto(), otherwise: this.otherwise.toDto() }
     }
+
     findComponent(id: string): { component: TemplateCondition | TemplateString, parent: TemplateContainer } | null {
         for (const component of [this.condition, this.then, this.otherwise]) {
             const found = component.findComponent(id)
@@ -66,6 +67,7 @@ export type TemplateComponent = TemplateCondition | TemplateString
 
 export class TemplateContainer {
     children: TemplateComponent[];
+
     constructor(value: TemplateContainerDto | TemplateContainer | TemplateComponent[]) {
         if (Array.isArray(value)) {
             this.children = value
@@ -108,10 +110,12 @@ export class TemplateContainer {
 export class Template {
     root: TemplateContainer
     variables: string[]
+
     constructor(template: TemplateDto) {
         this.root = new TemplateContainer(template.root)
         this.variables = template.variables
     }
+
     toDto(): TemplateDto {
         return { root: this.root.toDto(), variables: this.variables }
     }

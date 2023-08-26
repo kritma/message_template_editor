@@ -26,6 +26,7 @@ export function editorReducer(state: EditorContextType, action: Action): EditorC
         case 'set_selection':
             state.selection = action.selection
             break
+
         case 'insert_condition': {
             const { parent, component } = state.template.root.findComponent(state.selection.id) as { parent: TemplateContainer, component: TemplateString }
             const first = component.value.substring(0, state.selection.selectionPos)
@@ -34,6 +35,7 @@ export function editorReducer(state: EditorContextType, action: Action): EditorC
             parent.children = [...parent.children.slice(0, index), new TemplateString(first),
             new TemplateCondition(), new TemplateString(second), ...parent.children.slice(index + 1)]
         } break
+
         case 'delete_condition': {
             const { parent, component } = state.template.root.findComponent(action.id) as { parent: TemplateContainer, component: TemplateCondition }
             const index = parent.children.indexOf(component)!
@@ -41,6 +43,7 @@ export function editorReducer(state: EditorContextType, action: Action): EditorC
             const second = parent.children[index + 1] as TemplateString
             parent.children = [...parent.children.slice(0, index - 1), new TemplateString(first.value + second.value), ...parent.children.slice(index + 2)]
         } break
+
         case 'insert_variable': {
             const { component } = state.template.root.findComponent(state.selection.id) as { parent: TemplateContainer, component: TemplateString }
             const first = component.value.substring(0, state.selection.selectionPos)
@@ -54,7 +57,6 @@ export function editorReducer(state: EditorContextType, action: Action): EditorC
         state.selection.id = state.template.root.children[0].id
         state.selection.selectionPos = 0
     }
-
 
     return state
 }
