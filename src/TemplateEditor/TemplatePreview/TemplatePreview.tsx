@@ -1,17 +1,12 @@
 
-import { useEffect, useState } from "react"
-import { TemplateDto } from "../../utils/dto"
-import { solveTemplate } from "../../utils/solveTemplate"
-import styles from "./TemplatePreview.module.css"
+import { useState } from 'react'
+import { TemplateDto } from '../../utils/dto'
+import { solveTemplate } from '../../utils/solveTemplate'
+import styles from './TemplatePreview.module.css'
 
 export function TemplatePreview({ template, arrVarNames }: { arrVarNames: string[], template: TemplateDto }) {
     const [variables, setVariables] = useState<{ [key: string]: string }>({})
-    useEffect(() => {
-        for (const variable of arrVarNames) {
-            variables[variable] = ""
-        }
-        setVariables({ ...variables })
-    }, [])
+
 
     return (
         <div className={styles.preview}>

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import styles from "./Popup.module.css";
+import React, { useState } from 'react';
+import styles from './Popup.module.css';
 
 function Popup({ children, closePopup }: { children: React.ReactNode, closePopup: () => void }) {
     return (

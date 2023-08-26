@@ -10,13 +10,13 @@ export interface TemplateContainerDto {
 }
 
 export interface TemplateConditionDto {
-    type: "Condition"
+    type: 'Condition'
     condition: TemplateContainerDto
     then: TemplateContainerDto
     otherwise: TemplateContainerDto
 }
 
 export interface TemplateStringDto {
-    type: "String"
+    type: 'String'
     value: string
 }

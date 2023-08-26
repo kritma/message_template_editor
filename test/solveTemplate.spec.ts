@@ -106,7 +106,7 @@ tap.test("solve container with condition in it", async (test) => {
 
 tap.test("solve condition container with not valid component", async (test) => {
 
-    test.throws(() => solveContainer(createContainer([{} as TemplateStringDto]), {}, []), { message: "Not valid scheme, type property should be Condition or String" }, "should throws error")
+    test.throws(() => solveContainer(createContainer([{} as TemplateStringDto]), {}, []), { message: 'Not valid scheme, type property should be \'Condition\' or \'String\'' }, "should throws error")
 })
 
 tap.test("solve template", async (test) => {

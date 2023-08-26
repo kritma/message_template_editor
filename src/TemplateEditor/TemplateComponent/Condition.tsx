@@ -1,12 +1,13 @@
-import { TemplateCondition } from "../../utils/dtoWrappers"
-import { Container } from "./Container"
-import styles from "./Condition.module.css"
-import { useEditorDispatch } from "../EditorContext"
+import { TemplateCondition } from '../../utils/dtoWrappers'
+import { Container } from './Container'
+import styles from './Condition.module.css'
+import { useEditorDispatch } from '../EditorContext'
+
 export function Condition({ self }: { self: TemplateCondition }) {
     const dispatch = useEditorDispatch()
     return (
         <div className={styles.condition_wrapper}>
-            <button className={styles.delete} onClick={() => dispatch({ type: "delete_condition", id: self.id })}>
+            <button className={styles.delete} onClick={() => dispatch({ type: 'delete_condition', id: self.id })}>
                 x
             </button>
             <div className={styles.condition}>

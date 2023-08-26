@@ -1,27 +1,27 @@
-import { TemplateConditionDto, TemplateContainerDto, TemplateDto, TemplateStringDto } from "./dto";
+import { TemplateConditionDto, TemplateContainerDto, TemplateDto, TemplateStringDto } from './dto';
 
 export class TemplateString {
     value: string;
-    type: "String" = "String";
+    type: 'String' = 'String';
     id: string = crypto.randomUUID()
 
     constructor(value?: string | TemplateStringDto | TemplateString) {
         if (value === undefined) {
-            this.value = ""
+            this.value = ''
         } else {
-            if (typeof value === "string") {
+            if (typeof value === 'string') {
                 this.value = value
             } else {
                 this.value = value.value
 
-                if (value.hasOwnProperty("id")) {
+                if (value.hasOwnProperty('id')) {
                     this.id = (value as TemplateString).id
                 }
             }
         }
     }
     toDto(): TemplateStringDto {
-        return { type: "String", value: this.value }
+        return { type: 'String', value: this.value }
     }
 }
 
@@ -30,7 +30,7 @@ export class TemplateCondition {
     condition: TemplateContainer;
     then: TemplateContainer;
     otherwise: TemplateContainer;
-    type: "Condition" = "Condition";
+    type: 'Condition' = 'Condition';
     id: string = crypto.randomUUID()
 
     constructor(templateCondition?: TemplateConditionDto | TemplateCondition) {
@@ -42,13 +42,13 @@ export class TemplateCondition {
             this.condition = new TemplateContainer(templateCondition.condition)
             this.then = new TemplateContainer(templateCondition.then)
             this.otherwise = new TemplateContainer(templateCondition.otherwise)
-            if (templateCondition.hasOwnProperty("id")) {
+            if (templateCondition.hasOwnProperty('id')) {
                 this.id = (templateCondition as TemplateCondition).id
             }
         }
     }
     toDto(): TemplateConditionDto {
-        return { type: "Condition", condition: this.condition.toDto(), then: this.then.toDto(), otherwise: this.otherwise.toDto() }
+        return { type: 'Condition', condition: this.condition.toDto(), then: this.then.toDto(), otherwise: this.otherwise.toDto() }
     }
     findComponent(id: string): { component: TemplateCondition | TemplateString, parent: TemplateContainer } | null {
         for (const component of [this.condition, this.then, this.otherwise]) {
@@ -72,10 +72,12 @@ export class TemplateContainer {
         } else {
             this.children = value.children.map(e => {
                 switch (e.type) {
-                    case "Condition":
+                    case 'Condition':
                         return new TemplateCondition(e)
-                    case "String":
+                    case 'String':
                         return new TemplateString(e)
+                    default:
+                        throw new Error('Not valid scheme, type property should be "Condition" or "String"')
                 }
             })
         }
@@ -90,7 +92,7 @@ export class TemplateContainer {
             if (component.id === id) {
                 return { component, parent: this }
             } else {
-                if (component.type === "Condition") {
+                if (component.type === 'Condition') {
                     const found = component.findComponent(id)
                     if (found !== null) {
                         return found

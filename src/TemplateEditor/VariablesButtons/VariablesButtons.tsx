@@ -1,6 +1,5 @@
-import styles from "./VariablesButtons.module.css"
-import { VariableButton } from "./VariableButton/VariableButton"
-import { useEditorDispatch } from "../EditorContext"
+import styles from './VariablesButtons.module.css'
+import { VariableButton } from './VariableButton/VariableButton'
 
 export function VariablesButtons({ arrVarNames }: { arrVarNames: string[] }) {
     return (
