@@ -6,11 +6,14 @@ import TextareaAuto from 'react-textarea-autosize';
 
 export function String({ self }: { self: TemplateString }) {
     const dispatch = useEditorDispatch()
+
+    // hack so react updates this component
     const [, setValue] = useState(self.value)
 
     return <TextareaAuto
         className={styles.string}
         onChange={(e) => {
+            // state syncing + hack for react
             setValue(() => { self.value = e.target.value; return self.value })
         }}
         onBlur={e => {
