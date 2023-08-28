@@ -6,7 +6,7 @@ tap.test("insert condition", async (test) => {
     const template = new Template({ root: { children: [] }, variables: [] })
     template.root.children.push(new TemplateString("bobabiba"))
 
-    const state: EditorContextType = { selection: { selectionPos: 4, id: template.root.children[0].id }, template }
+    const state: EditorContextType = { selection: { selectionStart: 4, selectionEnd: 8, id: template.root.children[0].id }, template }
 
     const result = editorReducer(state, { type: "insert_condition" })
 
@@ -16,7 +16,7 @@ tap.test("insert condition", async (test) => {
             children: [
                 { type: "String", value: "boba" },
                 { type: "Condition" },
-                { type: "String", value: "biba" }
+                { type: "String", value: "" }
             ]
         }
     }
@@ -25,9 +25,9 @@ tap.test("insert condition", async (test) => {
 
 tap.test("insert variable", async (test) => {
     const template = new Template({ root: { children: [] }, variables: [] })
-    template.root.children.push(new TemplateString("variable: "))
+    template.root.children.push(new TemplateString("variable: here"))
 
-    const state: EditorContextType = { selection: { selectionPos: 10, id: template.root.children[0].id }, template }
+    const state: EditorContextType = { selection: { selectionStart: 10, selectionEnd: 14, id: template.root.children[0].id }, template }
 
     const result = editorReducer(state, { type: "insert_variable", variableName: "variable" })
 
@@ -52,7 +52,7 @@ tap.test("delete condition", async (test) => {
     template.root.children.push(new TemplateString(second))
 
 
-    const state: EditorContextType = { selection: { selectionPos: 0, id: template.root.children[0].id }, template }
+    const state: EditorContextType = { selection: { selectionStart: 0, selectionEnd: 0, id: template.root.children[0].id }, template }
 
     const result = editorReducer(state, { type: "delete_condition", id: template.root.children[1].id })
 
@@ -67,3 +67,23 @@ tap.test("delete condition", async (test) => {
     test.match(result.template, wanted, `${JSON.stringify(result.template.toDto())}`)
 })
 
+tap.test("set value", async (test) => {
+    const template = new Template({ root: { children: [] }, variables: [] })
+
+    template.root.children.push(new TemplateString("Hi, my name is, what?"))
+
+
+    const state: EditorContextType = { selection: { selectionStart: 0, selectionEnd: 0, id: template.root.children[0].id }, template }
+
+    const result = editorReducer(state, { type: "set_value", value: "My name is, who?", id: template.root.children[0].id })
+
+    test.pass("editorReducer executed successfully")
+    const wanted = {
+        root: {
+            children: [
+                { type: "String", value: "My name is, who?" }
+            ]
+        }
+    }
+    test.match(result.template, wanted, `${JSON.stringify(result.template.toDto())}`)
+})
