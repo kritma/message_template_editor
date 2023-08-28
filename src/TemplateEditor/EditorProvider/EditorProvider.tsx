@@ -4,7 +4,7 @@ import { Template, TemplateContainer, TemplateString } from '../../utils/dtoWrap
 import { Action, EditorContextType, editorReducer } from './editorReducer';
 
 const default_template = new Template({ variables: [], root: new TemplateContainer([new TemplateString()]) })
-const default_selection = { selectionPos: 0, id: default_template.root.children[0].id }
+const default_selection = { selectionStart: 0, selectionEnd: 0, id: default_template.root.children[0].id }
 
 // doesn`t matter because useReducer takes default values
 const EditorContext = createContext<EditorContextType>({ selection: default_selection, template: default_template })
@@ -16,7 +16,7 @@ export function EditorProvider({ children, template, variables }: { children: Re
     t.variables = variables
 
     const [context, dispatch] = useReducer<typeof editorReducer>(editorReducer, {
-        selection: { selectionPos: 0, id: t.root.children[0].id },
+        selection: { selectionStart: 0, selectionEnd: 0, id: t.root.children[0].id },
         template: t
     });
 

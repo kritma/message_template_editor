@@ -2,19 +2,20 @@ import { Template, TemplateCondition, TemplateContainer, TemplateString } from "
 
 type Selection = {
     id: string
-    selectionPos: number
+    selectionStart: number
+    selectionEnd: number
 }
 
-// selection changes only on blur, so it`s ok
 export type EditorContextType = {
     selection: Selection,
     template: Template
 }
 
-export type Action = { type: 'set_selection', selection: Selection } |
-{ type: 'insert_condition' } |
-{ type: 'delete_condition', id: string } |
-{ type: 'insert_variable', variableName: string }
+export type Action = { type: 'set_selection', selection: Selection }
+    | { type: 'insert_condition' }
+    | { type: 'delete_condition', id: string }
+    | { type: 'insert_variable', variableName: string }
+    | { type: 'set_value', value: string, id: string }
 
 
 export function editorReducer(state: EditorContextType, action: Action): EditorContextType {
@@ -29,8 +30,8 @@ export function editorReducer(state: EditorContextType, action: Action): EditorC
 
         case 'insert_condition': {
             const { parent, component } = state.template.root.findComponent(state.selection.id) as { parent: TemplateContainer, component: TemplateString }
-            const first = component.value.substring(0, state.selection.selectionPos)
-            const second = component.value.substring(state.selection.selectionPos)
+            const first = component.value.substring(0, state.selection.selectionStart)
+            const second = component.value.substring(state.selection.selectionEnd)
             const index = parent.children.indexOf(component)
             parent.children = [...parent.children.slice(0, index), new TemplateString(first),
             new TemplateCondition(), new TemplateString(second), ...parent.children.slice(index + 1)]
@@ -46,16 +47,22 @@ export function editorReducer(state: EditorContextType, action: Action): EditorC
 
         case 'insert_variable': {
             const { component } = state.template.root.findComponent(state.selection.id) as { parent: TemplateContainer, component: TemplateString }
-            const first = component.value.substring(0, state.selection.selectionPos)
-            const second = component.value.substring(state.selection.selectionPos)
+            const first = component.value.substring(0, state.selection.selectionStart)
+            const second = component.value.substring(state.selection.selectionEnd)
             component.value = `${first}{${action.variableName}}${second}`
+        } break
+
+        case 'set_value': {
+            const { component } = state.template.root.findComponent(action.id) as { parent: TemplateContainer, component: TemplateString }
+            component.value = action.value
         } break
     }
 
     // selection is always correct
     if (state.template.root.findComponent(state.selection.id) == null) {
         state.selection.id = state.template.root.children[0].id
-        state.selection.selectionPos = 0
+        state.selection.selectionStart = 0
+        state.selection.selectionEnd = 0
     }
 
     return state
