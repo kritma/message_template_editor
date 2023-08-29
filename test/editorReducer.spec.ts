@@ -20,7 +20,7 @@ tap.test("insert condition", async (test) => {
             ]
         }
     }
-    test.match(result.template, wanted, `${JSON.stringify(result.template.toDto())}`)
+    test.match(result.template, wanted)
 })
 
 tap.test("insert variable", async (test) => {
@@ -39,7 +39,7 @@ tap.test("insert variable", async (test) => {
             ]
         }
     }
-    test.match(result.template, wanted, `${JSON.stringify(result.template.toDto())}`)
+    test.match(result.template, wanted)
 })
 
 tap.test("delete condition", async (test) => {
@@ -64,7 +64,7 @@ tap.test("delete condition", async (test) => {
             ]
         }
     }
-    test.match(result.template, wanted, `${JSON.stringify(result.template.toDto())}`)
+    test.match(result.template, wanted)
 })
 
 tap.test("set value", async (test) => {
@@ -85,5 +85,5 @@ tap.test("set value", async (test) => {
             ]
         }
     }
-    test.match(result.template, wanted, `${JSON.stringify(result.template.toDto())}`)
+    test.match(result.template, wanted)
 })

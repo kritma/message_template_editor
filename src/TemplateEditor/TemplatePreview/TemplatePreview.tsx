@@ -13,7 +13,7 @@ export function TemplatePreview({ template, arrVarNames }: { arrVarNames: string
                 {
                     // for ease of state management
                     arrVarNames.map(v => (
-                        <div className={styles.variable}>
+                        <div key={v} className={styles.variable}>
                             <label className={styles.variable_name} htmlFor={v}>{v}</label>
                             <input key={v} id={v} placeholder={v} className={styles.variable_input} onChange={e => {
                                 variables[v] = e.target.value
