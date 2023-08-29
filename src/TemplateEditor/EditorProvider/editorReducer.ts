@@ -29,12 +29,16 @@ export function editorReducer(state: EditorContextType, action: Action): EditorC
             break
 
         case 'insert_condition': {
-            const { parent, component } = state.template.root.findComponent(state.selection.id) as { parent: TemplateContainer, component: TemplateString }
-            const first = component.value.substring(0, state.selection.selectionStart)
-            const second = component.value.substring(state.selection.selectionEnd)
+            const selection = state.selection;
+            const { parent, component } = state.template.root.findComponent(selection.id) as { parent: TemplateContainer, component: TemplateString }
+            const first = new TemplateString(component.value.substring(0, selection.selectionStart))
+            const second = new TemplateString(component.value.substring(selection.selectionEnd))
             const index = parent.children.indexOf(component)
-            parent.children = [...parent.children.slice(0, index), new TemplateString(first),
-            new TemplateCondition(), new TemplateString(second), ...parent.children.slice(index + 1)]
+            parent.children = [...parent.children.slice(0, index),
+                first, new TemplateCondition(), second,
+            ...parent.children.slice(index + 1)]
+            selection.id = first.id
+            selection.selectionEnd = selection.selectionStart
         } break
 
         case 'delete_condition': {
