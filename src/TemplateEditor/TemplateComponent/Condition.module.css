@@ -1,15 +1,7 @@
 .condition_wrapper {
     margin-top: 0;
     position: relative;
-    animation: show 600ms forwards;
-    transform-origin: top;
-    transform: scaleY(0);
-}
-
-@keyframes show {
-    100% {
-        transform: scaleY(1);
-    }
+    overflow: hidden;
 }
 
 .branch {
@@ -44,6 +36,7 @@
 .condition {
     padding: 1rem;
     padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
     padding-left: 3rem;
     display: flex;
     flex-direction: column;
